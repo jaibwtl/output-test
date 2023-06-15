@@ -5,18 +5,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: dev
     steps:
       - name: Set the value
-        id: step_one
-        run: |
-          echo "action_state=yellow" >> "$GITHUB_ENV"
+        run: echo "Servername ${{ env.server }}"
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    environment: prod
     steps:
-      - name: Use the value
-        id: step_two
-        run: |
-          echo "${{ env.action_state }}" # This will output 'yellow'
-
-
+      - name: Set the value
+        run: echo "Servername ${{ env.server }}"
