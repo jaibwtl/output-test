@@ -5,14 +5,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      build-dir: ${{ steps.prepare.outputs.dir }}
     steps:
-      - name: Prepare
-        run: echo "::set-output name=dir::/path/to/build/dir"
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy
-        run: echo "Build code is located in ${{ needs.build.outputs.build-dir }}"
+      - name: Set the value
+        id: step_one
+        run: |
+          echo "action_state=yellow" >> "$GITHUB_ENV"
+      - name: Use the value
+        id: step_two
+        run: |
+          echo "${{ env.action_state }}" # This will output 'yellow'
+
+
