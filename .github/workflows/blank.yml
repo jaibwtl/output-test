@@ -12,6 +12,7 @@ jobs:
           echo "action_state=yellow" >> "$GITHUB_ENV"
   deploy:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: Use the value
         id: step_two
