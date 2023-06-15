@@ -7,11 +7,20 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     steps:
-      - name: Set the value
-        run: echo "Servername ${{ vars.server }}"
+      - uses: actions/checkout@v2
+      - run: mkdir -p gagan-dir
+      - run: echo hello > gagan-dir/world.txt
+      - uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: gagan-dir/world.txt
   deploy:
     runs-on: ubuntu-latest
-    environment: prod
     steps:
-      - name: Set the value
-        run: echo "Servername ${{ vars.server }}"
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: my-artifact
+      - run: |
+          ls -l
+          cat world.txt
